@@ -1,0 +1,28 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "qdb",
+  "main": "index.js",
+  "scripts": {
+    "watch": "watch 'myth index.css build/styles.css && browserify index.js -o build/bundle.js' ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yoshuawuyts/blog.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yoshuawuyts/blog/issues"
+  },
+  "homepage": "https://github.com/yoshuawuyts/blog",
+  "dependencies": {
+    "css-wipe": "^1.0.1",
+    "global": "^4.3.0"
+  },
+  "devDependencies": {
+    "browserify": "^8.0.3",
+    "watch": "^0.13.0",
+    "watchify": "^2.2.1"
+  }
+}
