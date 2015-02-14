@@ -1,4 +1,4 @@
-# projects without a po
+# projects without a project manager
 
 Doing projects is hard. At agencies projects are the only thing you do, trying
 to meet the clients requirements while keeping within the boundaries of the
@@ -22,6 +22,14 @@ Also of importance is to scope down the requirements. If you're aiming to
 release a feature to the public, don't mark the first release as "all the
 features should be done", but rather the minimum you can get away with. And
 then a bit less than that.
+
+Not having a PO / PM structure is detrimental to achieving success. If there's
+no project manager (or a concept of a project as a whole) it becomes more
+likely that a project will take longer than agreed upon, coordination will be
+lacking and eventually have frustrated and / or demotivated parties. Have
+someone who calls the shots. Don't let that person be the person making the
+demands. Let the person calling the shots be accountable for the project's
+succes and failure.
 
 Something I'm curious about is how to plan in time for refactoring and removing
 technical debt. If there's never time to do this projects collapse under their
