@@ -6,14 +6,14 @@ pretty well at npm module trivia, and feel comfortable doing and am doing
 pretty well for myself as a JavaScript consultant. This is a little writeup of
 how I got into programming.
 
-## Psychology
+## 2011 - Psychology
 Four years ago I started as a freshman in Amsterdam to study Psychology.
 Though at times it was interesting, it didn't do much for me. What I actually
 wanted to do was Industrial Design to figure out how to make humans and
 computers work well together. Unfortunately that required me to have elected
 certain science courses at age 15, which I never did.
 
-## HTML & CSS
+## Early 2013 - HTML & CSS
 Psychology bored me, so I put in the minimum amount of effort to prevent
 getting kicked out of uni and focused on other things instead. I managed to get
 a job as an Office Manager at a design agency for a day a week. There I saw the
@@ -22,7 +22,7 @@ things too. So I dove into HTML & CSS, and started creating gray boxes in other
 gray boxes. I even managed to embed some images. I was ready to become a
 startup founder.
 
-## JavaScript, act 1 (the framework monster)
+## Mid 2013 - JavaScript, act 1 (the framework monster)
 School numbed my mind, so I wanted to create a company to make education more
 entertaining. As a broke student with moderate connections and little
 experience in the art of hustling there was but one option: build it myself.
@@ -36,7 +36,7 @@ end of this I had no idea how to write logic, had no conception of which
 components made up applications and couldn't write a for-loop if my life
 depended on it. I was trying to take shortcuts, the results were poor.
 
-## C
+## Fall 2013 - C
 After a few weeks of frustration of copy-and-pasting Angular and Sails
 boilerplate I realized I wasn't getting anywhere. I talked to some people, and
 ended up applying for the "Programming Minor" at the University of Amsterdam.
@@ -49,7 +49,7 @@ were too hard, I was in tears), but somehow managed to pull through. After 2
 months, 20% of the students had dropped out. I was now able to comfortably
 write C.
 
-## JavaScript, act 2 (the tale of NPM and React)
+## Winter 2013 - JavaScript, act 2 (the tale of NPM and React)
 After Harvard's CS50 two more courses followed: algorithms and app-building.
 Though algorithms was sharp and educational, the app-building course seemed
 interesting, but empty and shallow. I didn't feel engaged by Ruby and Java.
@@ -65,7 +65,7 @@ game-changer for me. I was suddenly able to create interfaces without having to
 understand those verbose DOM methods. State was less of a concern, and
 applications felt cohesive. I was in love.
 
-## Getting a job, act 1
+## Early 2014 - Getting a job, act 1
 At this point I had written half a dozen npm modules, done about 3 months of
 React development and was gradually getting comfortable with JavaScript.
 University minors are supposed to last 6 months, and I felt continuing
@@ -82,7 +82,7 @@ month of my life, and was definitely worth it. I felt defeated, but
 invigorated. After all: I had impressed Facebook engineers enough with my
 handy work that they wanted to see me in action.
 
-## Getting a job, act 2
+## Mid 2014 - Getting a job, act 2
 I wasn't ready to go back to Psychology, so I applied at a Dutch magazine
 startup where one of my friends worked. He got me an interview, and after two
 somewhat rough interview rounds I was hired. This was all I dreamt of, right?
@@ -95,21 +95,108 @@ off as being harsh. Though on the other hand: my suggestions were warranted as
 I haven't encountered a worse code base to date. It was probably for the
 better that we split up.
 
-## The Art of Unix programming
+## Mid 2014 - The Art of Unix programming
 Probably the most important advice I got from one of the engineers of my
-now-ex-employer was to read "The Art of Unix Programming". Though being
-extremely dry, it also opened my eyes to what Unix is, and what it can do.
+now-ex-employer was to read "The Art of Unix Programming". I ended up reading
+it during uni's summer break.
 
-## Getting a job, act 3
+Though being extremely dry, it showed me how systems should be written. I felt
+enlightened; for the first time ever I now understood how complex systems had
+come to be.
 
-## Shell
+## Mid 2014 - Getting a job, act 3
+The start of the next college year was looming, and I still didn't have a job.
+I was getting a bit panicky; not having a job meant going back to uni. I rented
+a co-working space during the summer to work from. Not to take on contracting
+work, but to have a spot where I could hammer work down. I spent time
+configuring docker, writing modules and playing around with animations. I was
+far from an expert, but at least I now knew where I wanted to head to.
 
-## Vim & tmux
+I spent a good deal of time attending meetups, sometimes up to 3 nights a week.
+By sheer chance I had befriended the CEO of Phusion, [Ninh Bui]() a few months
+earlier. He introduced me to Framer's creator [Koen Bok](), who then
+introduced me to Wercker's CEO [Micha Hernadez van Leuven](). Wercker happened
+to be looking for engineers, and after a talk at their offices we agreed to
+have a little trial to see if we liked each other. I ended up working there
+just short of a year.
 
-## Writing things down
+## Mid 2014 - Having a job and keeping it
+I was in, I had a job! In case things went awry I still had a plan B: going
+back to uni, skipping all Psychology classes and instead work down a sturdy
+buffet of computer science courses. (Note: I wasn't allowed to enroll in
+Computer Science, but was allowed to take all courses individually. Oh, the
+joys of bureaucracy).
 
-## GLSL
+The trial as Wercker was simple: there were 3 weeks until the start of the
+uni year (September 1st, 2014). I was tasked with building a standalone OS X
+application that talked to an API and showed notifications natively
+cross-platform. I nailed it.
+
+Working in a team is very different from working by yourself, especially when
+working on an existing product. Every project is bound to have a backlog of
+unsolved issues, team members with different opinions and unexpected changes in
+organization (shifting deadlines, staff changes, etc). In our case the team was
+spread too thin over too many fronts at once.
+
+Between a shift from vanilla LXC to Docker, a rewrite of core elements from
+Node to Go, a new scheduler on top of CoreOS, a Docker image repository, UI
+changes, API rearchitecture and a relentless push to add new features, we
+probably took on too much work.
+
+When I wasn't at work writing code for the job, I was either on a date,
+swimming laps or writing npm packages. I slept on average 5 hours a night. At
+that point there was very little else going on in my life, and I was starting
+to burn up.
+
+## Winter 2014 - Vim & tmux
+Around Christmas of 2014, I was having a constant feeling of panic. I was
+pushing myself too hard and my body and mind were taking the toll. I was
+writing code all day, almost every day. Like someone suffering from Stockholm's
+I took pride in the fact that I worked every day. My foster parents were
+concerned and I ended up spending several weekends in a row at theirs to take
+it easy.
+
+During the Christmas holidays I ended up travelling to Budapest and reflected
+on what I was doing. I went out every day, coded very little and started to
+realize what was important to me in life. Coding all day, every day was not
+worth it.
+
+While stuck on an airport in Vienna (for 14 hours) I watched a few [Cyberwizard
+lectures]() realized that in order to do more I should work smarter, not
+harder. So I fired up `vimtutor` and started foraging into the lands of
+(neo)vim and `tmux`. This ended paying off greatly; it reduced strain on both
+my mind and wrists, and I was able to switch contexts faster.
+
+## Early 2015 - Writing things down
+The essence of computing is to make repetition redundant. I found myself
+looking up the same topics over and over again on Stack Overflow. Instead of
+buying books on certain topics, I decided to start writing down everything I
+came across instead in  my
+[knowledge](https://github.com/yoshuawuyts/knowledge) repo.
+
+If there's any advice I can give to anyone it'd be that: keep public notes.
+It starts of as convenient reference for yourself, but it ends up becoming a
+way to share your brain with others.
+
+## Spring 2015 Bay Area, GLSL and screwing up
+Wercker has offices in both Amsterdam and San Francisco. With co-workers
+travelling between the two, I felt it was time for me to do the same. So I
+talked to my boss, booked myself a ticket and went off to the US with just a
+backpack.
+
+As a developer, the Bay area is somewhere you probably want to have been at
+least once, if only to judge the place for yourself. During the day I worked
+from an office at Folsom street, and during the night I spent time at meetups
+in SF, on a boat in Alameda or hacking in Oakland. I ended up meeting some
+people I'd only known from the internet (hi [@isaacs](), [@jjjohnny](),
+[@substack]()), and felt happy with where I was heading.
+
+## Going freelance
+
 
 ## Looking back
+In the past two years I've learned a lot about myself and about making things
+alike.
 
 ## Looking forward
+
