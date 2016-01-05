@@ -24,7 +24,7 @@ In this article I'll explain the ideas driving the current orientation of
 tooling, and how to use minimal abstractions to achieve those ideas. But first
 I want you to remember the following:
 
-> Your choice of tools is irrelevant for your project.
+> Your choice of tools is irrelevant
 
 If you're building a new product, don't worry about what boilerplate you're
 using; it'll only be used once. Don't worry about what build system you're
@@ -35,16 +35,59 @@ the quality of your product. Architecture, scope and maintenance are what you
 should be worrying about.
 
 ## Concepts
-Today's front end architecture 
+Today's front end architecture is built around the classic MVC pattern. The
+words `state` and `data` can be used interchangeably:
 
-There's nothing wrong
+- views take state and are displayed to the user
+- models hold the current state
+- controllers modify the state
 
-Step 2 might seem like a bit much, but it's totally justified!
-If you're like most people, you'll have no idea what's going on in the second
-step.
+Note that views are responsible for served to the user as output (e.g. the
+elements that are visible on the screen), but also serve as input (e.g. trigger
+something when a button is clicked).*1*
 
-Sure, you've heard `react` is good because Facebook built it and it
-introduces something called `virtual-dom` which is supposed to be good. And
-sure, ES6 is the next version of JavaScript so we need babel. And `react`
+And to make it up to date for 2016, we'd add:
+- only views can trigger controllers
+- only controllers can modify models
+- when a model is modified, re-render the view
 
-[0]: https://github.com/tj/frontend-boilerplate
+If we were to visualize it we would get:
+```txt
+┌───────┐  ┌──────────┐   ┌──────┐
+│       │  │          │   │      │
+│       │  │          │   │      │
+│       │  │          │   │      │
+│       ◀──│Controller│◀──┤      │
+│       │  │          │   │      │    ┌────┐
+│ Model │  │          │   │ View │◀──▶│User│
+│       │  │          │   │      │    └────┘
+│       │  └──────────┘   │      │
+│       │                 │      │
+│       ├─────────────────▶      │
+│       │                 │      │
+└───────┘                 └──────┘
+```
+
+Facebook's `react.js` exposes something called `virtual-dom`, which is also
+been made available by [@raynos]() and [@matt-esch]() as a stand alone package.
+But what does it do?
+
+At its heart virtual-dom allows for an upper bound of mutations. This means
+that whatever you change in the state, it will render at max `60fps`*2*. Though
+`virtual-dom` and `react` are supposed to be fast, they perform poorly when
+doing anything that requires high performance because of the garbage it
+generates. *3*
+
+*1*: it's arguable whether or not views are actually also the receivers of
+input. I'm choosing to say they are because it makes the rest of the
+abstractions easier to bridge into. I find considering views as the only point
+of user IO to make for a simpler mental model.
+
+*2*: I'm aware it's constrained by the browsers's RAF loop, but conventionally
+  it's 60fps; so bear with me.
+
+*3*: I have little experience with running into `react` / `virtual-dom`'s
+limits, but I have friends who have; and they say it's bad. Frameworks are
+nothing more than fancy ways of accessing dom methods, so if you know what
+you're doing, vanilla DOM operations will always be faster. Don't let the hype
+machine fool you into thinking otherwise.
