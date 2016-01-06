@@ -91,3 +91,5 @@ limits, but I have friends who have; and they say it's bad. Frameworks are
 nothing more than fancy ways of accessing dom methods, so if you know what
 you're doing, vanilla DOM operations will always be faster. Don't let the hype
 machine fool you into thinking otherwise.
+
+[0]: https://github.com/tj/frontend-boilerplate
