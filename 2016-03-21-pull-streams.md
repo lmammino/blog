@@ -17,15 +17,15 @@ Node ships with streams built in. However over time they've proven to be
 very complex. We're currently on the third iteration, where each version has
 added a new layer of API's, events and concepts. From talking to Node users,
 I've come across few that were comfortable using Node streams - which is
-unfortunate since the concepts underlying them are very solid.
+unfortunate since the concepts underlying them are solid.
 
 ## Enter pull streams
-`pull-stream`s are an alternative model for streams created by [Dominic
-Tarr](https://github.com/dominictarr). Like Node streams v2 and v3, it has a
-concept of _backpressure_. This means that instead of a source pushing out data
-as fast as it can, the consumer stream _pulls_ data once it's ready to handle
-more.  This leads to a program never holding more data in memory than it
-strictly needs.
+[pull-stream](https://github.com/dominictarr/pull-stream)s are an alternative
+model for streams created by [Dominic Tarr](https://github.com/dominictarr).
+Like Node streams v2 and v3, it has a concept of _backpressure_. This means
+that instead of a source pushing out data as fast as it can, the consumer
+stream _pulls_ data once it's ready to handle more.  This leads to a program
+never holding more data in memory than it strictly needs.
 
 Just because the implementation of `pull-stream`s is so small, here's the full
 source code:
@@ -63,9 +63,8 @@ bit of code.
 ## Pull streams
 In pull streams there are 3 types of streams. Source, through and sink. In
 order to let data flow, a source and sink must be connected. Through streams
-are just combinations of sources and sinks, making every connection in the
-pipeline a source and a sink that talk to each other. Conceptually it looks
-like this:
+are combinations of sources and sinks, making every connection in the pipeline
+a source and a sink that talk to each other. Conceptually it looks like this:
 ```txt
   ┌──────┐   ┌──────┐   ┌──────┐   ┌──────┐
   │Source│──▶│ Sink │ ┌▶│ Sink │ ┌▶│ Sink │
@@ -94,17 +93,36 @@ pull(source, through, sink)
 Because under the hood we're just composing functions, the overhead of doing
 this is reduced to a bare minimum.
 
+## Composition
+`pull-stream`s use the `pull()` function to combine sinks and sources. Because
+sinks connect to sources, any number of streams can be connected. It's
+functional composition all the way.
+
+Duplex streams are objects that have a `.source` and `.sink` properties on
+them. The following are equivalent:
+```js
+pull(a.source, b.sink)
+pull(b.source, a.sink)
+```
+```js
+b.sink(a.source)
+a.sink(b.source)
+```
+```js
+pull(a, b, a)
+```
+
 ## Error handling
 Something where Node streams struggle with is error handling. Because errors
 don't propagate through `.pipe()` chains by default, it's common practice to
 either use helper libraries or attach a `.on('error')` listener to every
-stream. Getting errors wrong is definitely not great experience, and probably
-the single greatest source of confusion.
+stream. Getting errors wrong is not great experience, and probably the single
+greatest source of confusion when using Node streams.
 
 In `pull-stream`s errors are passed into the callback, which grinds the whole
 stream pipeline to a halt. It's again the familiar api of `cb(err)` for an
-error and `cb(null, value)` for success, and the additional way of signaling
-the end of a stream `cb(true)`.
+error and `cb(null, value)` for success, with an additional signature of
+`cb(true)` to signal the end of a stream.
 
 Here's a source stream that returns a single `fs.stat` value:
 ```js
@@ -126,4 +144,9 @@ function readFile (filename) {
 }
 ```
 
-## Eventual values
+## Wrapping it up
+And that's it. We've covered why streams are useful, how `pull-stream`s are
+make a good implementation, how to do map-reduce, handle errors and more.
+I could write a lot more examples and patterns for `pull-stream`s, but I think
+so far we've made our point: streams are neat, `pull-stream`s are a pretty neat
+implementation. Give them a try, and let me know how you go!
