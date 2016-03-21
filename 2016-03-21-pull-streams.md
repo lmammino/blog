@@ -60,7 +60,7 @@ module.exports = function pull () {
 With few lines of code there'll be fewer bugs, and room to optimize every last
 bit of code.
 
-## Pull streams
+## Pull stream types
 In pull streams there are 3 types of streams. Source, through and sink. In
 order to let data flow, a source and sink must be connected. Through streams
 are combinations of sources and sinks, making every connection in the pipeline
@@ -137,7 +137,7 @@ function readFile (filename) {
 
     fs.stat(filename, function (err, file) {
       if (err) return cb(err)   // ohey, an error
-      read = true               // mark that we're done
+      read = true               // mark that we've executed the action
       return cb(null, file)     // pass value down the pipeline
     })
   }
