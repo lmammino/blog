@@ -31,9 +31,9 @@ dependencies. The `pull-stream` source is just 28 lines, which is a whopping
 `0.4kb` minified:
 ```js
 module.exports = function pull (a) {
-  if (typeof a === 'function' && (a.length === 1)) {
+  if (typeof a === 'function' && a.length === 1) {
     return function (read) {
-      const args = [].slice.call(arguments)
+      var args = [].slice.call(arguments)
       return pull.apply(null, args)
     }
   }
@@ -50,7 +50,7 @@ module.exports = function pull (a) {
     var s = arguments[i]
     if (typeof s === 'function') {
       read = s(read)
-    } else if (typeof s === 'object') {
+    } else if (s && typeof s === 'object') {
       s.sink(read)
       read = s.source
     }
