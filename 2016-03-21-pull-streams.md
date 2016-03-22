@@ -1,10 +1,10 @@
 # Streams in Node
-Streams are an asynchronous abstraction that allows dealing with data in
-small chunks, pushing bottlenecks into the IO layer. This usually leads to less
+Streams are an asynchronous abstraction that allows dealing with large data sets
+in small chunks, pushing bottlenecks into the IO layer. This usually leads to less
 memory cost and increased performance, which is a _very_ good thing.
 
-In streams, data flows from a source, through a bunch of through streams, into
-a sink:
+In streams, data flows from a Source, through a bunch of Through streams, into
+a Sink:
 ```txt
   ┌────────┐   ┌─────────┐   ┌────────┐
   │ Source │──▶│ Through │──▶│  Sink  │
@@ -12,19 +12,19 @@ a sink:
 ```
 
 Node has shipped streams as part of its standard library since its early days.
-However with each release, new features APIs and concepts were added, making
+However with each release, new features, APIs and concepts were added, making
 the current implementation very unwieldy. In my years as a Node developer I've
 only met a handful of developers that felt comfortable using the current
-version of Node streams. In an ideal world streams would be used as much as in
+version of Node streams. In an ideal world streams would be used as much in
 Node as pipes are used in shell.
 
-## Enter pull streams
+## Enter pull-streams
 [pull-stream](https://github.com/dominictarr/pull-stream) is an alternative
 model for streams created by [Dominic Tarr](https://github.com/dominictarr).
 Like Node streams, it has a concept of _backpressure_. This means that instead
 of a source pushing out data as fast as it can, the consumer stream _pulls_
 data once it's ready to handle more. This leads to a program never holding more
-data in memory than it strictly needs.
+data in memory than it needs.
 
 The Node streams source is well over 1200 lines, without even accounting for
 dependencies. The `pull-stream` source is just 28 lines, which is a whopping
@@ -63,8 +63,8 @@ Don’t be fooled by the simple exterior though, `pull-stream` provides the same
 functionality as Node streams do. With fewer lines of code there’ll be less
 bugs, and room to optimize every last bit of code.
 
-## Pull stream types
-In pull streams there are 3 types of streams. Source, through and sink. In
+## Pull-stream types
+In pull-streams there are 3 types of streams: source, through and sink. In
 order to let data flow, a source and sink must be connected. Through streams
 are combinations of sources and sinks, making every connection in the pipeline
 a source and a sink that talk to each other. Conceptually it looks like this:
@@ -88,8 +88,8 @@ what [pumpify](https://github.com/mafintosh/pumpify) provides for Node streams.
 sinks connect to sources, any number of streams can be connected. It's
 functional composition all the way.
 
-Duplex streams are objects that have a `.source` and `.sink` properties on
-them. The following are equivalent:
+Duplex (through) streams are objects that have a `.source` and `.sink` properties
+on them. The following three methods of connecting `pull-stream`s are equivalent:
 
 ```js
 pull(a.source, b.sink)
@@ -130,12 +130,12 @@ Because under the hood we're just composing functions, the overhead of doing
 this is reduced to a bare minimum.
 
 ## Error handling
-In Node streams errors don't propagate through `.pipe()` chains. It's therefor
+In Node streams errors don't propagate through `.pipe()` chains. It's therefore
 common practice to either use helper libraries or attach a `.on('error')`
 listener to every stream. Getting errors wrong is not a great feeling.
 
 In `pull-stream`s errors are passed into the callback, which grinds the whole
-stream pipeline to a halt. It's again the familiar api of `cb(err)` for an
+stream pipeline to a halt. It's again the familiar API of `cb(err)` for an
 error and `cb(null, value)` for success.
 
 Here's a source stream that returns a single `fs.stat` value:
