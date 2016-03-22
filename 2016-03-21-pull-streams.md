@@ -19,7 +19,7 @@ version of Node streams. In an ideal world streams would be used as much as in
 Node as pipes are used in shell.
 
 ## Enter pull streams
-[pull-stream](https://github.com/dominictarr/pull-stream)s are an alternative
+[pull-stream](https://github.com/dominictarr/pull-stream) is an alternative
 model for streams created by [Dominic Tarr](https://github.com/dominictarr).
 Like Node streams, it has a concept of _backpressure_. This means that instead
 of a source pushing out data as fast as it can, the consumer stream _pulls_
@@ -59,8 +59,9 @@ module.exports = function pull (a) {
   return read
 }
 ```
-With fewer lines of code there'll be less bugs, and room to optimize every last
-bit of code.
+Don’t be fooled by the simple exterior though, `pull-stream` provides the same
+functionality as Node streams do. With fewer lines of code there’ll be less
+bugs, and room to optimize every last bit of code.
 
 ## Pull stream types
 In pull streams there are 3 types of streams. Source, through and sink. In
