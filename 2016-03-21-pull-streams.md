@@ -1,9 +1,7 @@
-# let's talk about streams
-
-## What are streams?
+# Streams in Node
 Streams are an asynchronous abstraction that allows dealing with data in
 small chunks, pushing bottlenecks into the IO layer. This usually leads to less
-memory cost and increased performance, which is a very good thing.
+memory cost and increased performance, which is a _very_ good thing.
 
 In streams, data flows from a source, through a bunch of through streams, into
 a sink:
@@ -13,51 +11,55 @@ a sink:
   └────────┘   └─────────┘   └────────┘
 ```
 
-Node ships with streams built in. However over time they've proven to be
-very complex. We're currently on the third iteration, where each version has
-added a new layer of API's, events and concepts. From talking to Node users,
-I've come across few that were comfortable using Node streams - which is
-unfortunate since the concepts underlying them are solid.
+Node has shipped streams as part of its standard library since its early days.
+However with each release, new features APIs and concepts were added, making
+the current implementation very unwieldy. In my years as a Node developer I've
+only met a handful of developers that felt comfortable using the current
+version of Node streams. In an ideal world streams would be used as much as in
+Node as pipes are used in shell.
 
 ## Enter pull streams
 [pull-stream](https://github.com/dominictarr/pull-stream)s are an alternative
 model for streams created by [Dominic Tarr](https://github.com/dominictarr).
-Like Node streams v2 and v3, it has a concept of _backpressure_. This means
-that instead of a source pushing out data as fast as it can, the consumer
-stream _pulls_ data once it's ready to handle more.  This leads to a program
-never holding more data in memory than it strictly needs.
+Like Node streams, it has a concept of _backpressure_. This means that instead
+of a source pushing out data as fast as it can, the consumer stream _pulls_
+data once it's ready to handle more. This leads to a program never holding more
+data in memory than it strictly needs.
 
-Just because the implementation of `pull-stream`s is so small, here's the full
-source code:
+The Node streams source is well over 1200 lines, without even accounting for
+dependencies. The `pull-stream` source is just 28 lines, which is a whopping
+`0.4kb` minified:
 ```js
-module.exports = function pull () {
-  var args = [].slice.call(arguments)
-  if (typeof arg[0] === 'function' && (args[0].length === 1) {
+module.exports = function pull (a) {
+  if (typeof a === 'function' && (a.length === 1)) {
     return function (read) {
-      args.unshift(read)
+      const args = [].slice.call(arguments)
       return pull.apply(null, args)
     }
   }
 
-  var read = args.shift()
-  if(read && typeof read.source === 'function') read = read.source
+  var read = a
+  var n = arguments.length
+  var i = 1
 
-  function next () {
-    var s = args.shift()
-    if(null == s) return next()
-    if(typeof s === 'function') return s
+  if (read && typeof read.source === 'function') {
+    read = read.source
+  }
 
-    return function (read) {
+  for (; i < n; i++) {
+    var s = arguments[i]
+    if (typeof s === 'function') {
+      read = s(read)
+    } else if (typeof s === 'object') {
       s.sink(read)
-      return s.source
+      read = s.source
     }
   }
 
-  while(args.length) read = next()(read)
   return read
 }
 ```
-With few lines of code there'll be fewer bugs, and room to optimize every last
+With fewer lines of code there'll be less bugs, and room to optimize every last
 bit of code.
 
 ## Pull stream types
@@ -71,12 +73,45 @@ a source and a sink that talk to each other. Conceptually it looks like this:
   └──────┘   ├──────┤ │ ├──────┤ │ └──────┘
              │Source│─┘ │Source│─┘
              └──────┘   └──────┘
+              Through    Through
 ```
 
-`pull-stream` comes with a bunch of additional files that contain convenience
-functions. Let's use some of these to create a basic map-reduce pipeline where
-we asynchronously `fs.stat` an array of files, and gather the results in an
-array:
+If a source and a through stream are connected they will not start emitting
+data until a sink is attached at the end. Likewise, if a through and sink are
+connected, they will not start flowing data until a source is attached at the
+start. This allows composition of arbitrary streams into pipelines similar to
+what [pumpify](https://github.com/mafintosh/pumpify) provides for Node streams.
+
+## Composition
+`pull-stream`s use the `pull()` function to combine sinks and sources. Because
+sinks connect to sources, any number of streams can be connected. It's
+functional composition all the way.
+
+Duplex streams are objects that have a `.source` and `.sink` properties on
+them. The following are equivalent:
+
+```js
+pull(a.source, b.sink)
+pull(b.source, a.sink)
+```
+```js
+b.sink(a.source)
+a.sink(b.source)
+```
+```js
+pull(a, b, a)
+```
+
+## Helper functions
+`pull-stream` ships with helper functions such as `asyncMap` that make common
+interactions trivial. See the docs for available
+[sources](https://github.com/dominictarr/pull-stream/blob/master/docs/sources.md),
+[sinks](https://github.com/dominictarr/pull-stream/blob/master/docs/sinks.md)
+and
+[throughs](https://github.com/dominictarr/pull-stream/blob/master/docs/throughs.md).
+
+Let's create a basic map-reduce pipeline using `asyncMap` where we
+asynchronously `fs.stat` an array of files, and gather the results in an array:
 ```js
 const pull = require('pull')
 const fs = require('fs')
@@ -93,36 +128,14 @@ pull(source, through, sink)
 Because under the hood we're just composing functions, the overhead of doing
 this is reduced to a bare minimum.
 
-## Composition
-`pull-stream`s use the `pull()` function to combine sinks and sources. Because
-sinks connect to sources, any number of streams can be connected. It's
-functional composition all the way.
-
-Duplex streams are objects that have a `.source` and `.sink` properties on
-them. The following are equivalent:
-```js
-pull(a.source, b.sink)
-pull(b.source, a.sink)
-```
-```js
-b.sink(a.source)
-a.sink(b.source)
-```
-```js
-pull(a, b, a)
-```
-
 ## Error handling
-Something where Node streams struggle with is error handling. Because errors
-don't propagate through `.pipe()` chains by default, it's common practice to
-either use helper libraries or attach a `.on('error')` listener to every
-stream. Getting errors wrong is not great experience, and probably the single
-greatest source of confusion when using Node streams.
+In Node streams errors don't propagate through `.pipe()` chains. It's therefor
+common practice to either use helper libraries or attach a `.on('error')`
+listener to every stream. Getting errors wrong is not a great feeling.
 
 In `pull-stream`s errors are passed into the callback, which grinds the whole
 stream pipeline to a halt. It's again the familiar api of `cb(err)` for an
-error and `cb(null, value)` for success, with an additional signature of
-`cb(true)` to signal the end of a stream.
+error and `cb(null, value)` for success.
 
 Here's a source stream that returns a single `fs.stat` value:
 ```js
@@ -145,8 +158,18 @@ function readFile (filename) {
 ```
 
 ## Wrapping it up
-And that's it. We've covered why streams are useful, how `pull-stream`s are
-make a good implementation, how to do map-reduce, handle errors and more.
-I could write a lot more examples and patterns for `pull-stream`s, but I think
-so far we've made our point: streams are neat, `pull-stream`s are a pretty neat
-implementation. Give them a try, and let me know how you go!
+And that's it. I could keep whipping out `pull-stream` examples, but I think
+we've made our point: streams are a cool idea; `pull-stream` is a neat
+implementation. If you're keen to learn more, take a look at the links below.
+I hope this was useful; give `pull-stream` a try let me know how you go! -Yosh
+
+- [twitter/yoshuawuyts](https://twitter.com/yoshuawuyts)
+- [github/yoshuawuyts](https://github.com/yoshuawuyts)
+
+## See Also
+- [pull-stream](https://github.com/dominictarr/pull-stream)
+- [pull-stream-examples](https://github.com/dominictarr/pull-stream-examples)
+- [pull-stream/spec](https://github.com/dominictarr/pull-stream/blob/master/spec.md)
+- [pull-stream/sources](https://github.com/dominictarr/pull-stream/blob/master/docs/sources.md)
+- [pull-stream/sinks](https://github.com/dominictarr/pull-stream/blob/master/docs/sinks.md)
+- [pull-stream/throughs](https://github.com/dominictarr/pull-stream/blob/master/docs/throughs.md)
