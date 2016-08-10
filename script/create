@@ -1,0 +1,9 @@
+#!/bin/sh
+date="$(date +"%Y-%m-%d")"
+
+printf 'Title: '
+read -r name
+mod_name="$(echo "$name" | sed 's/ /-/g')"
+file_name="$date-$mod_name.md"
+touch "$file_name"
+printf 'Created %s' "$file_name"
