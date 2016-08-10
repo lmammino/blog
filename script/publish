@@ -1,0 +1,3 @@
+#!/bin/sh
+
+markdown-to-medium "$1"
