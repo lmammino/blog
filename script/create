@@ -6,4 +6,5 @@ read -r name
 mod_name="$(echo "$name" | sed 's/ /-/g')"
 file_name="$date-$mod_name.md"
 touch "$file_name"
+printf "# %s\n" "$name" > "$file_name"
 printf 'Created %s' "$file_name"
