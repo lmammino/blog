@@ -1,10 +1,17 @@
 #!/bin/sh
 date="$(date +"%Y-%m-%d")"
+fdate="$(date +"%d-%m-%Y")"
 
 printf 'Title: '
 read -r name
 mod_name="$(echo "$name" | sed 's/ /-/g')"
 file_name="$date-$mod_name.md"
 touch "$file_name"
-printf "# %s\n" "$name" > "$file_name"
+
+{
+  echo '---'
+  printf "title: '%s'\ncreated: '%s'\n" "$name" "$fdate"
+  echo '---'
+} >> "$file_name"
+
 printf 'Created %s' "$file_name"
