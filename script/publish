@@ -1,3 +1,8 @@
 #!/bin/sh
 
+markdown-to-medium -h > /dev/null
+if [ $? -ne 0 ]; then
+  npm i -g markdown-to-medium
+fi
+
 markdown-to-medium "$1"
