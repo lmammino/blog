@@ -26,6 +26,8 @@ zero to Choo will now be instant.
 $ create-choo-app my-app
 ```
 
+![gif of create-choo-app doing its thing](./cha.gif)
+
 ## Nanocomponent
 🎉 `nanocomponent` and `cache-component` are merged into one module:
 [`nanocomponent@6.0.0` 🎉](https://github.com/choojs/nanocomponent). This has
@@ -38,6 +40,9 @@ engines. This allows you to do all sorts of cool things, like [persistent WebGL
 contexts](https://github.com/substack/regl-component), [60fps infinite
 lists](https://github.com/hypermodules/hyperamp/blob/546404cc3d87b3feb4f47cee35f2c1a25c06df39/renderer/elements/playlist/rows.js),
 [maps](https://github.com/substack/mixmap) and many more.
+
+Nanocomponent is useful in scenarios where you need local state in a component,
+or need to wrap 3rd party libraries that take care of its own rendering.
 
 Through the use of
 [adapters](https://github.com/yoshuawuyts/nanocomponent-adapters) these modules
@@ -86,6 +91,11 @@ event? check. Rendering a view? check. Calling `app.use()`. check check check.
 `choo-log` is the first module to make use of these traces, but any module can
 hook into these traces and use them however they like. We think that's rather
 neat.
+
+We plan to extract the tracing code from `choo-log` in the near future, but if
+you want to get started with gathering all of Choo's trace events right away
+you can use the [on-performance](https://github.com/yoshuawuyts/on-performance)
+module:
 
 ```js
 var onPerformance = require('on-performance')
