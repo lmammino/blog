@@ -1,7 +1,7 @@
----
-title: 'implicit rust'
-created: '10-10-2016'
----
++++
+title = 'implicit rust'
+created = '10-10-2016'
++++
 
 I've been playing with Rust for a year now, and I find it to be a pleasant
 experience. As someone who mostly does JavaScript and has done a bit of C in

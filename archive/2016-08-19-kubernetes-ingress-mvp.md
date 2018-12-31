@@ -1,7 +1,7 @@
----
-title: 'kubernetes ingress mvp'
-created: '19-08-2016'
----
++++
+title = 'kubernetes ingress mvp'
+created = '19-08-2016'
++++
 
 Creating a service with `kubernetes` is lots of fun, but the amount of new
 words that are introduced can be a bit much. And so I've found the need to go

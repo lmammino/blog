@@ -1,7 +1,7 @@
----
-title: 'Yosh in infrastructure land'
-created: '15-08-2016'
----
++++
+title = 'Yosh in infrastructure land'
+created = '15-08-2016'
++++
 
 I've been working on infrastructure for the last week or so. Not just because I
 think it's fun (I really do), it's also a requirement for this client project

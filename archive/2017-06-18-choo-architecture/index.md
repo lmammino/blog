@@ -1,7 +1,7 @@
----
-title: 'Choo, architecture & performance'
-created: '18-06-2017'
----
++++
+title = 'Choo, architecture & performance'
+created = '18-06-2017'
++++
 
 Almost every [Choo](https://github.com/yoshuawuyts/choo) release so far has
 managed to include more features, and reduce the size on disk. In the upcoming

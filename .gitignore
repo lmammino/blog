@@ -21,3 +21,6 @@ npm-debug.log
 
 # osx
 .DS_Store
+
+# blog
+public/

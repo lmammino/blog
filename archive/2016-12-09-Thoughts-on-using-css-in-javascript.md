@@ -1,7 +1,7 @@
----
-title: 'Thoughts on using css-in-javascript'
-created: '09-12-2016'
----
++++
+title = 'Thoughts on using css-in-javascript'
+created = '09-12-2016'
++++
 
 Every now and then articles pop up about a new package that handles allows
 people to define CSS styles inside their JavaScript source files. I've been

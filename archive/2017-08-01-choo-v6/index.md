@@ -1,7 +1,7 @@
----
-title: 'choo-v6'
-created: '01-08-2017'
----
++++
+title = 'choo-v6'
+created = '01-08-2017'
++++
 
 Heya, today we're releasing choo `v6.0.0`. After 5 release candidates, we're
 happy to finally share it with the world. We're also happy to announce
