@@ -1,0 +1,30 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ get_url(path="tachyons.css", trailing_slash=false) | safe }}">
+  <link rel="stylesheet" href="{{ get_url(path="fonts.css", trailing_slash=false) | safe }}">
+  <link rel="preload" as="font" crossorigin href="{{ get_url(path="inter-regular.woff2", trailing_slash=false) | safe }}">
+  <link rel="preload" as="font" crossorigin href="{{ get_url(path="inter-italic.woff2", trailing_slash=false) | safe }}">
+  <link rel="preload" as="font" crossorigin href="{{ get_url(path="inter-bold.woff2", trailing_slash=false) | safe }}">
+<head>
+<body class="ph3 ph4-ns sans pb3 pb4-ns">
+  <nav class="flex justify-between mw9 w-100">
+    <h1 class="mt3 mt4-ns mb0 ttu b f1 f-subheadline-l">
+      Yoshua Wuyts
+    </h1>
+    {% block content %}
+    <a href="https://yoshuawuyts.com" class="black link b f1 f-subheadline-l ml2
+    mt3 mt4-ns">
+      ←
+    </a>
+  </nav>
+  {% for page in paginator.pages %}
+    <section itemprop="name" class="mt3 mt4-ns mb0">
+      <a class="f1 f-subheadline-l link black underline ttu b"
+        href="{{ page.permalink | safe }}">
+        {{ page.title }}
+      </a>
+    </section>
+  {% endfor %}
+  {% endblock content %}
+<body>

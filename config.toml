@@ -3,17 +3,17 @@ compile_sass = true
 highlight_code = true
 build_search_index = true
 generate_rss = true
-theme = "after-dark"
+# theme = "after-dark"
 
-taxonomies = [
-  {name = "categories", rss = true},
-  {name = "tags", rss = true},
-]
+# taxonomies = [
+#   {name = "categories", rss = true},
+#   {name = "tags", rss = true},
+# ]
 
-[extra]
-author = "Yoshua Wuyts"
-after_dark_menu = [
-  {url = "https://yoshuawuyts.com", name = "Home"},
-  {url = "$BASE_URL", name = "Blog"},
-]
-after_dark_title = "Yoshua Wuyts Blog"
+# [extra]
+# author = "Yoshua Wuyts"
+# after_dark_menu = [
+#   {url = "https://yoshuawuyts.com", name = "Home"},
+#   {url = "$BASE_URL", name = "Blog"},
+# ]
+# after_dark_title = "Yoshua Wuyts Blog"

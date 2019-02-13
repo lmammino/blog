@@ -1,0 +1,21 @@
+.sans {
+  font-family: 'inter', system-ui, sans-serif;
+}
+
+@font-face {
+  font-family: 'inter';
+  font-style:  normal;
+  font-weight: 400;
+  src: url("inter-regular.woff2?v=3.3") format("woff2");
+
+@font-face {
+  font-family: 'inter';
+  font-style:  normal;
+  font-weight: 400;
+  src: url("inter-italic.woff2?v=3.3") format("woff2");
+
+@font-face {
+  font-family: 'inter';
+  font-style:  normal;
+  font-weight: 700;
+  src: url("inter-bold.woff2?v=3.3") format("woff2");
