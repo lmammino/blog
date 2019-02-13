@@ -6,16 +6,22 @@
   font-family: 'inter';
   font-style:  normal;
   font-weight: 400;
-  src: url("inter-regular.woff2?v=3.3") format("woff2");
+  src: url("inter-regular.woff2?v=3.3") format("woff2"),
+       url("inter-regular.woff?v=3.3") format("woff");
+}
 
 @font-face {
   font-family: 'inter';
-  font-style:  normal;
+  font-style:  italic;
   font-weight: 400;
-  src: url("inter-italic.woff2?v=3.3") format("woff2");
+  src: url("inter-italic.woff2?v=3.3") format("woff2"),
+       url("inter-italic.woff?v=3.3") format("woff");
+}
 
 @font-face {
   font-family: 'inter';
   font-style:  normal;
   font-weight: 700;
-  src: url("inter-bold.woff2?v=3.3") format("woff2");
+  src: url("inter-bold.woff2?v=3.3") format("woff2"),
+       url("inter-bold.woff?v=3.3") format("woff");
+}
