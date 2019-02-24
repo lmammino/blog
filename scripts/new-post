@@ -1,0 +1,17 @@
+#!/bin/sh
+today="$(date +"%F")"
+
+# Read input
+printf 'Title: '
+read -r title
+
+sanitized_title="$(echo "$title" | sed 's/ /-/g' | tr '[:upper:]' '[:lower:]')"
+file_name="content/$today-$sanitized_title.md"
+
+# Create file
+touch "$file_name"
+printf '+++\ntitle = "%s"\ndate = %s\n+++\n' "$title" "$today" \
+  > "$file_name"
+
+echo "Created $file_name"
+cat "$file_name"
