@@ -18,8 +18,8 @@
       ←
     </a>
   </nav>
-  {% for page in paginator.pages %}
-    <section itemprop="name" class="mt3 mt4-ns mb0">
+  {% for page in paginator.pages | reverse %}
+    <section itemprop="name" class="mt4 mb0">
       <a class="f1 f-subheadline-l link black underline ttu b"
         href="{{ page.permalink | safe }}">
         {{ page.title }}
