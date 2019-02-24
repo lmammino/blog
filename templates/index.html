@@ -14,6 +14,9 @@
   <!-- <link rel="preload" as="font" crossorigin href="{{ get_url(path="inter-regular.woff2", trailing_slash=false) | safe }}"> -->
   <!-- <link rel="preload" as="font" crossorigin href="{{ get_url(path="inter-italic.woff2", trailing_slash=false) | safe }}"> -->
   <!-- <link rel="preload" as="font" crossorigin href="{{ get_url(path="inter-bold.woff2", trailing_slash=false) | safe }}"> -->
+  {% if config.generate_rss %}
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ get_url(path="rss.xml") | safe }}">
+  {% endif %}
 <head>
 <body class="ph3 ph4-ns sans pb3 pb4-ns">
   <nav class="flex justify-between mw9 w-100">
@@ -34,5 +37,11 @@
       </a>
     </section>
   {% endfor %}
+  <section itemprop="name" class="mt4 mb0">
+    <a class="f1 f-subheadline-l link black underline ttu b"
+      href="{{ get_url(path="rss.xml") | safe }}" target="_blank">
+      RSS Feed
+    </a>
+  </section>
   {% endblock content %}
 <body>
