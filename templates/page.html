@@ -1,8 +1,8 @@
 {% extends "index.html" %}
 
 {% block content %}
-    <a href="https://blog.yoshuawuyts.com" class="black link b f1 f-subheadline-l ml2
-    mt3 mt4-ns">
+    <a href="{{ get_url(path="/", trailing_slash=false) | safe }}"
+       class="black link b f1 f-subheadline-l ml2 mt3 mt4-ns">
       ←
     </a>
   </nav>
