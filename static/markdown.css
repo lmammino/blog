@@ -10,6 +10,11 @@
   color: black;
 }
 
+#markdown h1,
+#markdown h2 {
+  text-transform: uppercase;
+}
+
 @media screen and (min-width: 30em) {
   #markdown pre {
     width: 100%;
