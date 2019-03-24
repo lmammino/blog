@@ -13,7 +13,8 @@ _This post is part of a series:_
 In the last post we examined some examples of DSLs in Rust, and established that
 using DSLs in Rust is not uncommon.
 
-In this post we'll look at some of the requirements there exist around DSLs.
+In this post we'll look at some of the challenges there exist around DSLs in Rust, examine example
+from the ecosystem, and look at alternatives we can draw inspiration from.
 
 _Note: While I might be drawing on challenges from existing technologies, I would like to take a
 moment to emphasize that I have the utmost respect and admiration for these technologies, and the
@@ -112,10 +113,10 @@ _dialect_.
 ```rust
 use typed_html::{html, dom::DOMTree};
 
-// It'd be nice if we didn't have to quote the <img> tag here.
+// The inline text here has to be quoted or else compilation fails.
 let doc: DOMTree<String> = html!{
     <p>
-        "<img src=\"javascript:alert('pwned lol')\">"
+      "Hello world"
     </p>
 };
 let doc_str = doc.to_string();
@@ -140,15 +141,55 @@ literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Temp
 
 These act as a clear DSL-bound for the language, where it usually starts with a declaration of which
 DSL is about to follow, and continues with the DSL body. We've seen it before in the HTML
-example. But it works for other languages too!
+example. But it works for other DSLs too!
 
 ```js
-// For C
+// CSS
 let style = css`
   .button { color: black }
 `
 
+// SQL
+let table = 'piano'
 let query = sql`
-    DROP TABLE piano;
+    DROP TABLE ${table};
 `
 ```
+
+A great example of an editor plugin that works well with DSLs is Atom's [language-babel
+package](https://github.com/gandm/language-babel#javascript-tagged-template-literal-grammar-extensions).
+Some of the features it supports include:
+
+- Syntax highlighting for CSS, HTML template tags.
+- CSS autocompletion.
+- [Emmet html expansion](https://docs.emmet.io/)
+- HTML tags autocompletion (sadly on for JSX, not template strings)
+- ability to add syntax highlighting support for other languages too
+
+Imagine if we could do all these things in Rust! What if we could take things even further: with
+integrations and support for many more languages, engines and tools. Or at the very least: imagine a
+future where it'd be possible to visually tell when a value is interpolated in Rust DSLs. To
+summarize:
+
+> Having a consistent way of delimiting DSLs in Rust would allow for better integration with
+> tooling.
+
+## Conclusion
+So far we've talked about some of the challenges that DSLs have in Rust. This is by no means a
+comprehensive list, but it should give you an idea of some of the ecosystem-wide challenges we face.
+
+To recap the challenges:
+
+- During compilation DSLs should have the option to be compiled for target platforms.
+- DSLs benefit from being able to interpolate variables, and from consistency in interpolation
+  syntax.
+- Relying on Rust token streams as the base building block for the DSL means not all DSLs can be
+  expressed.
+- Having a consistent way of delimiting DSLs in Rust would allow for better integration with tooling.
+
+And that's where I want to leave this post. In a future post we'll talk about ways of solving these
+challenges for Rust as a whole, and outline possible steps we can take to get there.
+
+---
+
+_New episode coming soon._
