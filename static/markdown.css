@@ -2,8 +2,8 @@
   overflow: auto;
   padding: 1rem 1rem 1rem 1rem;
   font-size: .875rem;
-  margin-left: -1rem;
   width: calc(100vw - 0.5rem);
+  max-width: 100%;
 }
 
 #markdown a {
@@ -13,6 +13,7 @@
 #markdown h1,
 #markdown h2 {
   text-transform: uppercase;
+  margin-top: 2rem;
 }
 
 @media screen and (min-width: 30em) {
