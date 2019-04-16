@@ -4,6 +4,8 @@
   font-size: .875rem;
   width: calc(100vw - 0.5rem);
   max-width: 100%;
+  margin-top: 1.6rem;
+  margin-bottom: 1.6rem;
 }
 
 #markdown a {
