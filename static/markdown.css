@@ -24,3 +24,61 @@
     margin-left: 0;
   }
 }
+
+#markdown dl {
+  padding: 0;
+}
+
+#markdown dl dt {
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+  margin-top: 16px;
+  padding: 0;
+}
+
+#markdown dl dd {
+  margin-bottom: 16px;
+  padding: 0 16px;
+}
+
+#markdown table {
+  display: block;
+  overflow: auto;
+  width: 100%;
+}
+
+#markdown table th {
+  font-weight: 600;
+}
+
+#markdown table td,
+#markdown table th {
+  border: 1px solid #aaa;
+  padding: 6px 13px;
+}
+
+#markdown table tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1;
+}
+
+#markdown table tr:nth-child(2n) {
+  background-color: #fff;
+}
+
+#markdown hr:before {
+  content: "";
+  display: table;
+}
+
+#markdown hr:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+#markdown table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
