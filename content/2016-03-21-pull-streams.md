@@ -3,6 +3,11 @@ title = "pull streams"
 date = 2016-03-21
 +++
 
+_This post is part of a series:_
+
+- _Pull Streams (current)_
+- [_Rust Streams_](/rust-streams)
+
 Streams are an asynchronous abstraction that allows dealing with large data sets
 in small chunks, pushing bottlenecks into the IO layer. This usually leads to less
 memory cost and increased performance, which is a _very_ good thing.
