@@ -144,7 +144,7 @@ pipelines.
 
 [`map` combinator]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.map
 [`split`]: https://doc.rust-lang.org/std/io/trait.BufRead.html#method.split
-[`AsyncRead.split`]: https://docs.rs/futures-preview/0.3.0-alpha.16/futures/io/trait.AsyncReadExt.html#method.split 
+[`AsyncRead.split`]: https://docs.rs/futures-preview/0.3.0-alpha.16/futures/io/trait.AsyncReadExt.html#method.split
 
 ## Pipelines
 One of the staples of streams-based programming is being able to compose
