@@ -145,7 +145,7 @@ recommended to use a `while let Some` loop:
 
 ```rust
 let stream = my_protocol::parse(f).await?;
-while let Some(item) in stream.next().await {
+while let Some(item) = stream.next().await {
     println!("{:?}", item);
 }
 ```
@@ -417,7 +417,7 @@ to use. Most user land iteration of streams is done using `while let Some` loops
 ```rust
 let mut listener = TcpListener::bind("127.0.0.1:8081")?;
 let incoming = listener.incoming();
-while let Some(conn) in incoming.await {
+while let Some(conn) = incoming.await {
     let conn = conn?;
     /* handle connection */
 }
