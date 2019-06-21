@@ -97,14 +97,24 @@ let s = my_protocol::parse(f).await?;   // through (Stream)
 
 ### asyncread vs stream
 Another point of interest is the distinction between `AsyncRead` and
-`Stream`. Both kinds of streams are allowed to operate on `[u8]`. But the key
-difference is that `AsyncRead` yields _unparsed_ data. While `Stream` yields
-_parsed_ data.
+`Stream`. Both kinds of streams are allowed to operate on bytes. But the
+difference is that `AsyncRead` is a _byte stream_ that operates on borrowed
+data. While `Stream` is an _object stream_ that operates on owned data. This
+is to say that `Stream` can operate on any kind of data, not only bytes.
 
-This is equivalent to the relationship between stdlib's `Read` and `Iterator`
-traits. In the following example we convert arbitrary amount of bytes into
-separate lines of bytes using [`split`]. We've marked each line with the
-traits and yield types:
+While both `AsyncRead` and `Stream` can operate on bytes, `AsyncRead` yields
+_unparsed data_, while `Stream` yields _parsed data_. The difference is that
+with `Stream` each item yielded can generally be turned into a valid message
+on its own. While with `AsyncRead` it may be the case we need to request more
+data.
+
+Examples of `AsyncRead` include files, sockets, and HTTP bodies. Examples of
+`Stream` include [ndjson lines], and protobuf messages.
+
+The relationship between `AsyncRead` and `Stream` is equivalent to the
+relationship between stdlib's `Read` and `Iterator` traits. In the following
+example we convert arbitrary amount of bytes into separate lines of bytes
+using [`split`]. We've marked each line with the traits and yield types:
 
 ```rust
 use std::io;
@@ -121,6 +131,8 @@ Same data types. Different traits.
 Unfortunately [`AsyncRead.split`] does something radically different, so this
 example can't be directly copied over yet (more on what `split` does later).
 So don't try and write this in async Rust quite yet.
+
+[ndjson lines]: http://ndjson.org/
 
 ### sinks
 The way streams work is that at the end of a stream pipeline, there's a
