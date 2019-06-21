@@ -129,11 +129,11 @@ stream pipeline will only yield data if it's requested for. This is commonly
 referred to as "lazy iteration", or "streams with backpressure".
 
 Currently there's no dedicated syntax to loop through streams. Instead it's
-recommended to use a `while Some` loop:
+recommended to use a `while let Some` loop:
 
 ```rust
 let stream = my_protocol::parse(f).await?;
-while Some(item) in stream.next().await {
+while let Some(item) in stream.next().await {
     println!("{:?}", item);
 }
 ```
@@ -400,12 +400,12 @@ yourself some trouble, and don't bother with `Sink`.
 ## What's next?
 ### async iteration syntax
 Async iteration of streams is currently possible, but it isn't necessarily nice
-to use. Most user land iteration of streams is done using `while Some` loops
+to use. Most user land iteration of streams is done using `while let Some` loops
 
 ```rust
 let mut listener = TcpListener::bind("127.0.0.1:8081")?;
 let incoming = listener.incoming();
-while Some(conn) in incoming.await {
+while let Some(conn) in incoming.await {
     let conn = conn?;
     /* handle connection */
 }
